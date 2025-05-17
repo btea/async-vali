@@ -1,7 +1,8 @@
+import { expect, it, describe } from 'vitest';
 import Schema from '../src';
 
 describe('validator', () => {
-  it('works', done => {
+  it('works', (done) => {
     new Schema({
       v: [
         {
@@ -56,21 +57,20 @@ describe('validator', () => {
       {
         v: 2,
       },
-      errors => {
-        expect(errors.length).toBe(7);
-        expect(errors[0].message).toBe('e1');
-        expect(errors[1].message).toBe('e2');
-        expect(errors[2].message).toBe('e3');
-        expect(errors[3].message).toBe('v3 fails');
-        expect(errors[4].message).toBe('e5');
-        expect(errors[5].message).toBe('e6');
-        expect(errors[6].message).toBe('');
-        done();
+      (errors) => {
+        expect(errors?.length).toBe(7);
+        expect(errors?.[0].message).toBe('e1');
+        expect(errors?.[1].message).toBe('e2');
+        expect(errors?.[2].message).toBe('e3');
+        expect(errors?.[3].message).toBe('v3 fails');
+        expect(errors?.[4].message).toBe('e5');
+        expect(errors?.[5].message).toBe('e6');
+        expect(errors?.[6].message).toBe('');
       },
     );
   });
 
-  it('first works', done => {
+  it('first works', (done) => {
     new Schema({
       v: [
         {
@@ -99,16 +99,15 @@ describe('validator', () => {
       {
         first: true,
       },
-      errors => {
-        expect(errors.length).toBe(1);
-        expect(errors[0].message).toBe('e1');
-        done();
+      (errors) => {
+        expect(errors?.length).toBe(1);
+        expect(errors?.[0].message).toBe('e1');
       },
     );
   });
 
   describe('firstFields', () => {
-    it('works for true', done => {
+    it('works for true', (done) => {
       new Schema({
         v: [
           {
@@ -151,17 +150,16 @@ describe('validator', () => {
         {
           firstFields: true,
         },
-        errors => {
-          expect(errors.length).toBe(3);
-          expect(errors[0].message).toBe('e1');
-          expect(errors[1].message).toBe('e3');
-          expect(errors[2].message).toBe('e4');
-          done();
+        (errors) => {
+          expect(errors?.length).toBe(3);
+          expect(errors?.[0].message).toBe('e1');
+          expect(errors?.[1].message).toBe('e3');
+          expect(errors?.[2].message).toBe('e4');
         },
       );
     });
 
-    it('works for array', done => {
+    it('works for array', (done) => {
       new Schema({
         v: [
           {
@@ -204,20 +202,19 @@ describe('validator', () => {
         {
           firstFields: ['v'],
         },
-        errors => {
-          expect(errors.length).toBe(4);
-          expect(errors[0].message).toBe('e1');
-          expect(errors[1].message).toBe('e3');
-          expect(errors[2].message).toBe('e4');
-          expect(errors[3].message).toBe('e5');
-          done();
+        (errors) => {
+          expect(errors?.length).toBe(4);
+          expect(errors?.[0].message).toBe('e1');
+          expect(errors?.[1].message).toBe('e3');
+          expect(errors?.[2].message).toBe('e4');
+          expect(errors?.[3].message).toBe('e5');
         },
       );
     });
   });
 
   describe('promise api', () => {
-    it('works', done => {
+    it('works', (done) => {
       new Schema({
         v: [
           {
@@ -275,26 +272,26 @@ describe('validator', () => {
           expect(errors[5].message).toBe('e6');
           expect(fields.v[0].fieldValue).toBe(2);
           expect(fields).toMatchInlineSnapshot(`
-            Object {
-              "v": Array [
+            {
+              "v": [
                 [Error: e1],
                 [Error: e2],
               ],
-              "v2": Array [
+              "v2": [
                 [Error: e3],
               ],
-              "v3": Array [
-                Object {
+              "v3": [
+                {
                   "field": "v3",
                   "fieldValue": undefined,
                   "message": "v3 fails",
                 },
-                Object {
+                {
                   "field": "v3",
                   "fieldValue": undefined,
                   "message": "e5",
                 },
-                Object {
+                {
                   "field": "v3",
                   "fieldValue": undefined,
                   "message": "e6",
@@ -302,11 +299,10 @@ describe('validator', () => {
               ],
             }
           `);
-          done();
         });
     });
 
-    it('first works', done => {
+    it('first works', (done) => {
       new Schema({
         v: [
           {
@@ -340,12 +336,11 @@ describe('validator', () => {
         .catch(({ errors }) => {
           expect(errors.length).toBe(1);
           expect(errors[0].message).toBe('e1');
-          done();
         });
     });
 
     describe('firstFields', () => {
-      it('works for true', done => {
+      it('works for true', (done) => {
         new Schema({
           v: [
             {
@@ -395,11 +390,10 @@ describe('validator', () => {
             expect(errors[0].message).toBe('e1');
             expect(errors[1].message).toBe('e3');
             expect(errors[2].message).toBe('e4');
-            done();
           });
       });
 
-      it('works for array', done => {
+      it('works for array', (done) => {
         new Schema({
           v: [
             {
@@ -450,11 +444,10 @@ describe('validator', () => {
             expect(errors[1].message).toBe('e3');
             expect(errors[2].message).toBe('e4');
             expect(errors[3].message).toBe('e5');
-            done();
           });
       });
 
-      it('works for no rules fields', done => {
+      it('works for no rules fields', (done) => {
         new Schema({
           v: [],
           v2: [],
@@ -463,15 +456,14 @@ describe('validator', () => {
             v: 2,
             v2: 1,
           })
-          .then(source => {
+          .then((source) => {
             expect(source).toMatchObject({ v: 2, v2: 1 });
-            done();
           });
       });
     });
   });
 
-  it('custom validate function throw error', done => {
+  it('custom validate function throw error', (done) => {
     new Schema({
       v: [
         {
@@ -490,7 +482,6 @@ describe('validator', () => {
       .catch(({ errors }) => {
         expect(errors.length).toBe(1);
         expect(errors[0].message).toBe('something wrong');
-        done();
       });
   });
 });

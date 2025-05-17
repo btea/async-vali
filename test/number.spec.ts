@@ -1,7 +1,8 @@
+import { expect, it, describe } from 'vitest';
 import Schema from '../src';
 
 describe('number', () => {
-  it('works', done => {
+  it('works', (done) => {
     new Schema({
       v: {
         type: 'number',
@@ -10,15 +11,14 @@ describe('number', () => {
       {
         v: '1',
       },
-      errors => {
-        expect(errors.length).toBe(1);
-        expect(errors[0].message).toBe('v is not a number');
-        done();
+      (errors) => {
+        expect(errors?.length).toBe(1);
+        expect(errors?.[0].message).toBe('v is not a number');
       },
     );
   });
 
-  it('works for no-required', done => {
+  it('works for no-required', (done) => {
     new Schema({
       v: {
         type: 'number',
@@ -27,14 +27,13 @@ describe('number', () => {
       {
         v: undefined,
       },
-      errors => {
+      (errors) => {
         expect(errors).toBeFalsy();
-        done();
       },
     );
   });
 
-  it('works for no-required in case of empty string', done => {
+  it('works for no-required in case of empty string', (done) => {
     new Schema({
       v: {
         type: 'number',
@@ -44,14 +43,13 @@ describe('number', () => {
       {
         v: '',
       },
-      errors => {
+      (errors) => {
         expect(errors).toBeFalsy();
-        done();
       },
     );
   });
 
-  it('works for required', done => {
+  it('works for required', (done) => {
     new Schema({
       v: {
         type: 'number',
@@ -61,15 +59,14 @@ describe('number', () => {
       {
         v: undefined,
       },
-      errors => {
-        expect(errors.length).toBe(1);
-        expect(errors[0].message).toBe('v is required');
-        done();
+      (errors) => {
+        expect(errors?.length).toBe(1);
+        expect(errors?.[0].message).toBe('v is required');
       },
     );
   });
 
-  it('transform does not change value', done => {
+  it('transform does not change value', (done) => {
     const value = {
       v: '1',
     };
@@ -84,11 +81,10 @@ describe('number', () => {
       });
       expect(value.v).toBe('1');
       expect(errors).toBeFalsy();
-      done();
     });
   });
 
-  it('return transformed value in promise.then', done => {
+  it('return transformed value in promise.then', (done) => {
     const value = {
       v: '1',
     };
@@ -98,15 +94,14 @@ describe('number', () => {
         transform: Number,
       },
     })
-      .validate(value, errors => {
+      .validate(value, (errors) => {
         expect(value.v).toBe('1');
         expect(errors).toBeFalsy();
       })
-      .then(source => {
+      .then((source) => {
         expect(source).toEqual({
           v: 1,
         });
-        done();
       });
   });
 });

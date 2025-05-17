@@ -1,7 +1,8 @@
+import { expect, it, describe } from 'vitest';
 import Schema from '../src';
 
 describe('unicode', () => {
-  it('works for unicode U+0000 to U+FFFF ', done => {
+  it('works for unicode U+0000 to U+FFFF ', (done) => {
     new Schema({
       v: {
         type: 'string',
@@ -11,14 +12,13 @@ describe('unicode', () => {
       {
         v: '吉吉吉吉',
       },
-      errors => {
+      (errors) => {
         expect(errors).toBe(null);
-        done();
       },
     );
   });
 
-  it('works for unicode gt U+FFFF ', done => {
+  it('works for unicode gt U+FFFF ', (done) => {
     new Schema({
       v: {
         type: 'string',
@@ -28,14 +28,13 @@ describe('unicode', () => {
       {
         v: '𠮷𠮷𠮷𠮷',
       },
-      errors => {
+      (errors) => {
         expect(errors).toBe(null);
-        done();
       },
     );
   });
 
-  it('Rich Text Format', done => {
+  it('Rich Text Format', (done) => {
     new Schema({
       v: {
         type: 'string',
@@ -45,9 +44,8 @@ describe('unicode', () => {
       {
         v: '💩💩',
       },
-      errors => {
+      (errors) => {
         expect(errors).toBe(null);
-        done();
       },
     );
   });

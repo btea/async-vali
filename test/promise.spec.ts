@@ -1,7 +1,8 @@
+import { expect, it, describe } from 'vitest';
 import Schema from '../src';
 
 describe('asyncValidator', () => {
-  it('works', done => {
+  it('works', (done) => {
     new Schema({
       v: [
         {
@@ -26,17 +27,16 @@ describe('asyncValidator', () => {
       {
         v: 2,
       },
-      errors => {
-        expect(errors.length).toBe(3);
-        expect(errors[0].message).toBe('e1');
-        expect(errors[1].message).toBe('e2');
-        expect(errors[2].message).toBe('e3');
-        done();
+      (errors) => {
+        expect(errors?.length).toBe(3);
+        expect(errors?.[0].message).toBe('e1');
+        expect(errors?.[1].message).toBe('e2');
+        expect(errors?.[2].message).toBe('e3');
       },
     );
   });
 
-  it('first works', done => {
+  it('first works', (done) => {
     new Schema({
       v: [
         {
@@ -65,16 +65,15 @@ describe('asyncValidator', () => {
       {
         first: true,
       },
-      errors => {
-        expect(errors.length).toBe(1);
-        expect(errors[0].message).toBe('e1');
-        done();
+      (errors) => {
+        expect(errors?.length).toBe(1);
+        expect(errors?.[0].message).toBe('e1');
       },
     );
   });
 
   describe('firstFields', () => {
-    it('works for true', done => {
+    it('works for true', (done) => {
       new Schema({
         v: [
           {
@@ -117,17 +116,16 @@ describe('asyncValidator', () => {
         {
           firstFields: true,
         },
-        errors => {
-          expect(errors.length).toBe(3);
-          expect(errors[0].message).toBe('e1');
-          expect(errors[1].message).toBe('e3');
-          expect(errors[2].message).toBe('e4');
-          done();
+        (errors) => {
+          expect(errors?.length).toBe(3);
+          expect(errors?.[0].message).toBe('e1');
+          expect(errors?.[1].message).toBe('e3');
+          expect(errors?.[2].message).toBe('e4');
         },
       );
     });
 
-    it('works for array', done => {
+    it('works for array', (done) => {
       new Schema({
         v: [
           {
@@ -190,15 +188,14 @@ describe('asyncValidator', () => {
         {
           firstFields: ['v'],
         },
-        errors => {
-          expect(errors.length).toBe(6);
-          expect(errors[0].message).toBe('e1');
-          expect(errors[1].message).toBe('e3');
-          expect(errors[2].message).toBe('e4');
-          expect(errors[3].message).toBe('e5');
-          expect(errors[4].message).toBe('e6');
-          expect(errors[5].message).toBe('');
-          done();
+        (errors) => {
+          expect(errors?.length).toBe(6);
+          expect(errors?.[0].message).toBe('e1');
+          expect(errors?.[1].message).toBe('e3');
+          expect(errors?.[2].message).toBe('e4');
+          expect(errors?.[3].message).toBe('e5');
+          expect(errors?.[4].message).toBe('e6');
+          expect(errors?.[5].message).toBe('');
         },
       );
     });

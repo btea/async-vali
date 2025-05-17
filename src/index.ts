@@ -67,7 +67,7 @@ class Schema {
     }
     this.rules = {};
 
-    Object.keys(rules).forEach(name => {
+    Object.keys(rules).forEach((name) => {
       const item: Rule = rules[name];
       this.rules[name] = Array.isArray(item) ? item : [item];
     });
@@ -122,10 +122,12 @@ class Schema {
         callback(null, source);
       } else {
         fields = convertFieldsError(errors);
-        (callback as (
-          errors: ValidateError[],
-          fields: ValidateFieldsError,
-        ) => void)(errors, fields);
+        (
+          callback as (
+            errors: ValidateError[],
+            fields: ValidateFieldsError,
+          ) => void
+        )(errors, fields);
       }
     }
 
@@ -142,10 +144,10 @@ class Schema {
 
     const series: Record<string, RuleValuePackage[]> = {};
     const keys = options.keys || Object.keys(this.rules);
-    keys.forEach(z => {
+    keys.forEach((z) => {
       const arr = this.rules[z];
       let value = source[z];
-      arr.forEach(r => {
+      arr.forEach((r) => {
         let rule: InternalRuleItem = r;
         if (typeof rule.transform === 'function') {
           if (source === source_) {
@@ -240,7 +242,7 @@ class Schema {
 
             let fieldsSchema: Record<string, Rule> = {};
             if (rule.defaultField) {
-              Object.keys(data.value).map(key => {
+              Object.keys(data.value).map((key) => {
                 fieldsSchema[key] = rule.defaultField;
               });
             }
@@ -251,7 +253,7 @@ class Schema {
 
             const paredFieldsSchema: Record<string, RuleItem[]> = {};
 
-            Object.keys(fieldsSchema).forEach(field => {
+            Object.keys(fieldsSchema).forEach((field) => {
               const fieldSchema = fieldsSchema[field];
               const fieldSchemaList = Array.isArray(fieldSchema)
                 ? fieldSchema
@@ -266,16 +268,20 @@ class Schema {
               data.rule.options.messages = options.messages;
               data.rule.options.error = options.error;
             }
-            schema.validate(data.value, data.rule.options || options, errs => {
-              const finalErrors = [];
-              if (filledErrors && filledErrors.length) {
-                finalErrors.push(...filledErrors);
-              }
-              if (errs && errs.length) {
-                finalErrors.push(...errs);
-              }
-              doIt(finalErrors.length ? finalErrors : null);
-            });
+            schema.validate(
+              data.value,
+              data.rule.options || options,
+              (errs) => {
+                const finalErrors = [];
+                if (filledErrors && filledErrors.length) {
+                  finalErrors.push(...filledErrors);
+                }
+                if (errs && errs.length) {
+                  finalErrors.push(...errs);
+                }
+                doIt(finalErrors.length ? finalErrors : null);
+              },
+            );
           }
         }
 
@@ -312,11 +318,11 @@ class Schema {
         if (res && (res as Promise<void>).then) {
           (res as Promise<void>).then(
             () => cb(),
-            e => cb(e),
+            (e) => cb(e),
           );
         }
       },
-      results => {
+      (results) => {
         complete(results);
       },
       source,

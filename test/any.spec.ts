@@ -1,6 +1,7 @@
+import { expect, it, describe } from 'vitest';
 import Schema from '../src';
 
-const testNoErrorsFor = value => done => {
+const testNoErrorsFor = (value) => () => {
   new Schema({
     v: {
       type: 'any',
@@ -9,14 +10,13 @@ const testNoErrorsFor = value => done => {
     {
       v: value,
     },
-    errors => {
+    (errors) => {
       expect(errors).toBe(null);
-      done();
     },
   );
 };
 
-const testRequiredErrorFor = value => done => {
+const testRequiredErrorFor = (value) => () => {
   new Schema({
     v: {
       required: true,
@@ -26,10 +26,9 @@ const testRequiredErrorFor = value => done => {
     {
       v: value,
     },
-    errors => {
-      expect(errors.length).toBe(1);
-      expect(errors[0].message).toBe('v is required');
-      done();
+    (errors) => {
+      expect(errors?.length).toBe(1);
+      expect(errors?.[0].message).toBe('v is required');
     },
   );
 };

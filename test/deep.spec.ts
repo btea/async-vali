@@ -1,7 +1,8 @@
+import { expect, it, describe } from 'vitest';
 import Schema, { Rules } from '../src';
 
 describe('deep', () => {
-  it('deep array specific validation', done => {
+  it('deep array specific validation', () => {
     new Schema({
       v: {
         required: true,
@@ -16,11 +17,11 @@ describe('deep', () => {
         v: [1, 'b'],
       },
       (errors, fields) => {
-        expect(errors.length).toBe(1);
+        expect(errors?.length).toBe(1);
         expect(fields).toMatchInlineSnapshot(`
-          Object {
-            "v.0": Array [
-              Object {
+          {
+            "v.0": [
+              {
                 "field": "v.0",
                 "fieldValue": 1,
                 "message": "v.0 is not a string",
@@ -28,13 +29,12 @@ describe('deep', () => {
             ],
           }
         `);
-        expect(errors[0].message).toBe('v.0 is not a string');
-        done();
+        expect(errors?.[0].message).toBe('v.0 is not a string');
       },
     );
   });
 
-  it('deep object specific validation', done => {
+  it('deep object specific validation', () => {
     new Schema({
       v: {
         required: true,
@@ -52,11 +52,11 @@ describe('deep', () => {
         },
       },
       (errors, fields) => {
-        expect(errors.length).toBe(1);
+        expect(errors?.length).toBe(1);
         expect(fields).toMatchInlineSnapshot(`
-          Object {
-            "v.a": Array [
-              Object {
+          {
+            "v.a": [
+              {
                 "field": "v.a",
                 "fieldValue": 1,
                 "message": "v.a is not a string",
@@ -64,14 +64,13 @@ describe('deep', () => {
             ],
           }
         `);
-        expect(errors[0].message).toBe('v.a is not a string');
-        done();
+        expect(errors?.[0].message).toBe('v.a is not a string');
       },
     );
   });
 
   describe('defaultField', () => {
-    it('deep array all values validation', done => {
+    it('deep array all values validation', () => {
       new Schema({
         v: {
           required: true,
@@ -83,18 +82,18 @@ describe('deep', () => {
           v: [1, 2, 'c'],
         },
         (errors, fields) => {
-          expect(errors.length).toBe(2);
+          expect(errors?.length).toBe(2);
           expect(fields).toMatchInlineSnapshot(`
-            Object {
-              "v.0": Array [
-                Object {
+            {
+              "v.0": [
+                {
                   "field": "v.0",
                   "fieldValue": 1,
                   "message": "v.0 is not a string",
                 },
               ],
-              "v.1": Array [
-                Object {
+              "v.1": [
+                {
                   "field": "v.1",
                   "fieldValue": 2,
                   "message": "v.1 is not a string",
@@ -102,14 +101,13 @@ describe('deep', () => {
               ],
             }
           `);
-          expect(errors[0].message).toBe('v.0 is not a string');
-          expect(errors[1].message).toBe('v.1 is not a string');
-          done();
+          expect(errors?.[0].message).toBe('v.0 is not a string');
+          expect(errors?.[1].message).toBe('v.1 is not a string');
         },
       );
     });
 
-    it('deep transform array all values validation', done => {
+    it('deep transform array all values validation', () => {
       new Schema({
         v: {
           required: true,
@@ -121,18 +119,18 @@ describe('deep', () => {
           v: ['1', '2'],
         },
         (errors, fields) => {
-          expect(errors.length).toBe(2);
+          expect(errors?.length).toBe(2);
           expect(fields).toMatchInlineSnapshot(`
-            Object {
-              "v.0": Array [
-                Object {
+            {
+              "v.0": [
+                {
                   "field": "v.0",
                   "fieldValue": 1,
                   "message": "v.0 cannot be greater than 0",
                 },
               ],
-              "v.1": Array [
-                Object {
+              "v.1": [
+                {
                   "field": "v.1",
                   "fieldValue": 2,
                   "message": "v.1 cannot be greater than 0",
@@ -141,20 +139,19 @@ describe('deep', () => {
             }
           `);
           expect(errors).toMatchInlineSnapshot(`
-            Array [
-              Object {
+            [
+              {
                 "field": "v.0",
                 "fieldValue": 1,
                 "message": "v.0 cannot be greater than 0",
               },
-              Object {
+              {
                 "field": "v.1",
                 "fieldValue": 2,
                 "message": "v.1 cannot be greater than 0",
               },
             ]
           `);
-          done();
         },
       );
     });
@@ -192,13 +189,13 @@ describe('deep', () => {
         },
       };
 
-      new Schema(descriptor).validate(obj, errors => {
+      new Schema(descriptor).validate(obj, (errors) => {
         expect(errors).toMatchInlineSnapshot(`
-          Array [
-            Object {
+          [
+            {
               "field": "test",
-              "fieldValue": Array [
-                Object {
+              "fieldValue": [
+                {
                   "name": "aa",
                 },
               ],
@@ -209,7 +206,7 @@ describe('deep', () => {
       });
     });
 
-    it('array & required works', done => {
+    it('array & required works', () => {
       const descriptor: Rules = {
         testArray: {
           type: 'array',
@@ -222,11 +219,19 @@ describe('deep', () => {
       };
       const validator = new Schema(descriptor);
       validator.validate(record, (errors, fields) => {
-        done();
+        expect(errors).toMatchInlineSnapshot(`
+          [
+            {
+              "field": "testArray",
+              "fieldValue": [],
+              "message": "testArray is required",
+            },
+          ]
+        `);
       });
     });
 
-    it('deep object all values validation', done => {
+    it('deep object all values validation', () => {
       new Schema({
         v: {
           required: true,
@@ -240,10 +245,9 @@ describe('deep', () => {
             b: 'c',
           },
         },
-        errors => {
-          expect(errors.length).toBe(1);
-          expect(errors[0].message).toBe('v.a is not a string');
-          done();
+        (errors) => {
+          expect(errors?.length).toBe(1);
+          expect(errors?.[0].message).toBe('v.a is not a string');
         },
       );
     });

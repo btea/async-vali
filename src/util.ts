@@ -31,7 +31,7 @@ if (
       console.warn &&
       typeof ASYNC_VALIDATOR_NO_WARNING === 'undefined'
     ) {
-      if (errors.every(e => typeof e === 'string')) {
+      if (errors.every((e) => typeof e === 'string')) {
         console.warn(type, errors);
       }
     }
@@ -43,7 +43,7 @@ export function convertFieldsError(
 ): Record<string, ValidateError[]> {
   if (!errors || !errors.length) return null;
   const fields = {};
-  errors.forEach(error => {
+  errors.forEach((error) => {
     const field = error.field;
     fields[field] = fields[field] || [];
     fields[field].push(error);
@@ -61,7 +61,7 @@ export function format(
     return template.apply(null, args);
   }
   if (typeof template === 'string') {
-    let str = template.replace(formatRegExp, x => {
+    let str = template.replace(formatRegExp, (x) => {
       if (x === '%%') {
         return '%';
       }
@@ -72,7 +72,7 @@ export function format(
         case '%s':
           return String(args[i++]);
         case '%d':
-          return (Number(args[i++]) as unknown) as string;
+          return Number(args[i++]) as unknown as string;
         case '%j':
           try {
             return JSON.stringify(args[i++]);
@@ -134,7 +134,7 @@ function asyncParallelArray(
     }
   }
 
-  arr.forEach(a => {
+  arr.forEach((a) => {
     func(a, count);
   });
 }
@@ -166,7 +166,7 @@ function asyncSerialArray(
 
 function flattenObjArr(objArr: Record<string, RuleValuePackage[]>) {
   const ret: RuleValuePackage[] = [];
-  Object.keys(objArr).forEach(k => {
+  Object.keys(objArr).forEach((k) => {
     ret.push(...(objArr[k] || []));
   });
   return ret;
@@ -209,7 +209,7 @@ export function asyncMap(
       const flattenArr = flattenObjArr(objArr);
       asyncSerialArray(flattenArr, func, next);
     });
-    pending.catch(e => e);
+    pending.catch((e) => e);
     return pending;
   }
   const firstFields =
@@ -238,7 +238,7 @@ export function asyncMap(
       callback(results);
       resolve(source);
     }
-    objArrKeys.forEach(key => {
+    objArrKeys.forEach((key) => {
       const arr = objArr[key];
       if (firstFields.indexOf(key) !== -1) {
         asyncSerialArray(arr, func, next);
@@ -247,7 +247,7 @@ export function asyncMap(
       }
     });
   });
-  pending.catch(e => e);
+  pending.catch((e) => e);
   return pending;
 }
 
@@ -284,7 +284,7 @@ export function complementError(rule: InternalRuleItem, source: Values) {
     return {
       message: typeof oe === 'function' ? oe() : oe,
       fieldValue,
-      field: ((oe as unknown) as ValidateError).field || rule.fullField,
+      field: (oe as unknown as ValidateError).field || rule.fullField,
     };
   };
 }

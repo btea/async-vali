@@ -1,7 +1,8 @@
+import { expect, it, describe } from 'vitest';
 import Schema from '../src';
 
 describe('pattern', () => {
-  it('works for non-required empty string', done => {
+  it('works for non-required empty string', (done) => {
     new Schema({
       v: {
         pattern: /^\d+$/,
@@ -12,14 +13,13 @@ describe('pattern', () => {
         // useful for web, input's value defaults to ''
         v: '',
       },
-      errors => {
+      (errors) => {
         expect(errors).toBe(null);
-        done();
       },
     );
   });
 
-  it('work for non-required empty string with string regexp', done => {
+  it('work for non-required empty string with string regexp', (done) => {
     new Schema({
       v: {
         pattern: '^\\d+$',
@@ -30,15 +30,14 @@ describe('pattern', () => {
         // useful for web, input's value defaults to ''
         v: 's',
       },
-      errors => {
-        expect(errors.length).toBe(1);
-        expect(errors[0].message).toBe('haha');
-        done();
+      (errors) => {
+        expect(errors?.length).toBe(1);
+        expect(errors?.[0].message).toBe('haha');
       },
     );
   });
 
-  it('works for required empty string', done => {
+  it('works for required empty string', (done) => {
     new Schema({
       v: {
         pattern: /^\d+$/,
@@ -50,15 +49,14 @@ describe('pattern', () => {
         // useful for web, input's value defaults to ''
         v: '',
       },
-      errors => {
-        expect(errors.length).toBe(1);
-        expect(errors[0].message).toBe('haha');
-        done();
+      (errors) => {
+        expect(errors?.length).toBe(1);
+        expect(errors?.[0].message).toBe('haha');
       },
     );
   });
 
-  it('works for non-required null', done => {
+  it('works for non-required null', (done) => {
     new Schema({
       v: {
         pattern: /^\d+$/,
@@ -68,14 +66,13 @@ describe('pattern', () => {
       {
         v: null,
       },
-      errors => {
+      (errors) => {
         expect(errors).toBe(null);
-        done();
       },
     );
   });
 
-  it('works for non-required undefined', done => {
+  it('works for non-required undefined', (done) => {
     new Schema({
       v: {
         pattern: /^\d+$/,
@@ -85,14 +82,13 @@ describe('pattern', () => {
       {
         v: undefined,
       },
-      errors => {
+      (errors) => {
         expect(errors).toBe(null);
-        done();
       },
     );
   });
 
-  it('works', done => {
+  it('works', (done) => {
     new Schema({
       v: {
         pattern: /^\d+$/,
@@ -102,15 +98,14 @@ describe('pattern', () => {
       {
         v: ' ',
       },
-      errors => {
-        expect(errors.length).toBe(1);
-        expect(errors[0].message).toBe('haha');
-        done();
+      (errors) => {
+        expect(errors?.length).toBe(1);
+        expect(errors?.[0].message).toBe('haha');
       },
     );
   });
 
-  it('works for RegExp with global flag', done => {
+  it('works for RegExp with global flag', (done) => {
     const schema = new Schema({
       v: {
         pattern: /global/g,
@@ -122,7 +117,7 @@ describe('pattern', () => {
       {
         v: 'globalflag',
       },
-      errors => {
+      (errors) => {
         expect(errors).toBe(null);
       },
     );
@@ -131,9 +126,8 @@ describe('pattern', () => {
       {
         v: 'globalflag',
       },
-      errors => {
+      (errors) => {
         expect(errors).toBe(null);
-        done();
       },
     );
   });

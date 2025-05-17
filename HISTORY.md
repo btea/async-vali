@@ -1,5 +1,6 @@
 # History
-----
+
+---
 
 ## 4.0.0 / 2021-08-11
 
@@ -81,6 +82,6 @@
 
 ## 1.4.0 / 2015-01-12
 
-- fix first option. 
+- fix first option.
 - add firstFields option.
 - see tests/validator.spec.js

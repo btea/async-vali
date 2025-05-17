@@ -1,7 +1,8 @@
+import { expect, it, describe } from 'vitest';
 import Schema from '../src';
 
 describe('date', () => {
-  it('required works for undefined', done => {
+  it('required works for undefined', (done) => {
     new Schema({
       v: {
         type: 'date',
@@ -11,15 +12,14 @@ describe('date', () => {
       {
         v: undefined,
       },
-      errors => {
-        expect(errors.length).toBe(1);
-        expect(errors[0].message).toBe('v is required');
-        done();
+      (errors) => {
+        expect(errors?.length).toBe(1);
+        expect(errors?.[0].message).toBe('v is required');
       },
     );
   });
 
-  it('required works for ""', done => {
+  it('required works for ""', (done) => {
     new Schema({
       v: {
         type: 'date',
@@ -29,15 +29,14 @@ describe('date', () => {
       {
         v: '',
       },
-      errors => {
-        expect(errors.length).toBe(1);
-        expect(errors[0].message).toBe('v is required');
-        done();
+      (errors) => {
+        expect(errors?.length).toBe(1);
+        expect(errors?.[0].message).toBe('v is required');
       },
     );
   });
 
-  it('required works for non-date type', done => {
+  it('required works for non-date type', (done) => {
     new Schema({
       v: {
         type: 'date',
@@ -47,15 +46,14 @@ describe('date', () => {
       {
         v: {},
       },
-      errors => {
-        expect(errors.length).toBe(1);
-        expect(errors[0].message).toBe('v is not a date');
-        done();
+      (errors) => {
+        expect(errors?.length).toBe(1);
+        expect(errors?.[0].message).toBe('v is not a date');
       },
     );
   });
 
-  it('required works for "timestamp"', done => {
+  it('required works for "timestamp"', (done) => {
     new Schema({
       v: {
         type: 'date',
@@ -65,9 +63,8 @@ describe('date', () => {
       {
         v: 1530374400000,
       },
-      errors => {
+      (errors) => {
         expect(errors).toBe(null);
-        done();
       },
     );
   });

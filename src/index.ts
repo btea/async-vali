@@ -24,6 +24,7 @@ import {
   SyncErrorType,
   ValidateResult,
 } from './interface';
+import type { ExecuteValidator } from './interface'
 
 export * from './interface';
 
@@ -35,7 +36,7 @@ export * from './interface';
  */
 class Schema {
   // ========================= Static =========================
-  static register = function register(type: string, validator) {
+  static register = function register(type: string, validator: ExecuteValidator) {
     if (typeof validator !== 'function') {
       throw new Error(
         'Cannot register a validator by type, validator is not a function',

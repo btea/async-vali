@@ -3,6 +3,7 @@
   "version": "4.2.5",
   "description": "validate form asynchronous",
   "typings": "typings/index.d.ts",
+  "type": "module",
   "keywords": [
     "validator",
     "validate",

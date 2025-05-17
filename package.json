@@ -24,11 +24,11 @@
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
     "test": "vitest run",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "build": "tsdown"
   },
   "devDependencies": {
     "@types/node": "^22.15.18",
-    "eslint": "^9.27.0",
     "lint-staged": "^16.0.0",
     "oxlint": "^0.16.11",
     "prettier": "^3.5.3",

@@ -42,3 +42,4 @@ cypress/logs
 cypress/fixtures/profile.json
 cypress/fixtures/users.json
 .history
+dist

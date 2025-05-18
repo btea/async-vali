@@ -3,7 +3,7 @@
   "version": "1.0.1",
   "description": "validate form asynchronous",
   "type": "module",
-  "typings": "dist/index.d.mts",
+  "types": "dist/index.d.ts",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "exports": {

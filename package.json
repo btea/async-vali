@@ -1,5 +1,5 @@
 {
-  "name": "async-validation",
+  "name": "async-vali",
   "version": "1.0.0",
   "description": "validate form asynchronous",
   "typings": "dist/index.d.mts",

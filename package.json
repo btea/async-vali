@@ -6,7 +6,6 @@
   "typings": "dist/index.d.mts",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
-
   "exports": {
     ".": {
       "import": "./dist/index.mjs",
@@ -21,13 +20,13 @@
     "validate",
     "async"
   ],
-  "homepage": "https://github.com/btea/async-validator",
+  "homepage": "https://github.com/btea/async-vali",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com:btea/async-validator.git"
+    "url": "git+https://github.com:btea/async-vali.git"
   },
   "bugs": {
-    "url": "https://github.com/btea/async-validator/issues"
+    "url": "https://github.com/btea/async-vali/issues"
   },
   "license": "MIT",
   "scripts": {

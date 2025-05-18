@@ -12,9 +12,16 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          fetch-depth: 0
+
+      - name: install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Set Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
           cache: 'pnpm'
           registry-url: https://registry.npmjs.org/
       - name: changelog
@@ -24,12 +31,12 @@ jobs:
 
       - name: install
         run: pnpm install
-      
+
       - name: build
         run: pnpm build
 
       - name: publish
-        run: npm publish --access public --provenance
+        run: pnpm publish --access public --provenance
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM }}

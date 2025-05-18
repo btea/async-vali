@@ -2,6 +2,7 @@
   "name": "async-vali",
   "version": "1.0.0",
   "description": "validate form asynchronous",
+  "type": "module",
   "typings": "dist/index.d.mts",
   "main": "dist/index.js",
   "module": "dist/index.mjs",

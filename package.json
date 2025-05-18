@@ -1,8 +1,20 @@
 {
-  "name": "async-validator",
-  "version": "4.2.5",
+  "name": "async-validation",
+  "version": "1.0.0",
   "description": "validate form asynchronous",
-  "typings": "typings/index.d.ts",
+  "typings": "dist/index.d.mts",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "keywords": [
     "validator",
     "validate",
@@ -11,7 +23,7 @@
   "homepage": "https://github.com/btea/async-validator",
   "repository": {
     "type": "git",
-    "url": "git@github.com:btea/async-validator.git"
+    "url": "git+https://github.com:btea/async-validator.git"
   },
   "bugs": {
     "url": "https://github.com/btea/async-validator/issues"

@@ -32,7 +32,7 @@ jobs:
         run: pnpm build
 
       - name: publish
-        run: npm i -g npm@latest && npm publish --access public
+        run: npm i -g npm@latest && pnpm publish --access public --no-git-checks
 
       # - name: changelog
       #   run: pnpm dlx changelogithub
